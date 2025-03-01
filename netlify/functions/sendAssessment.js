@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
     // Construct an email message
     const msg = {
       to: data.userEmail,            // Send to the user’s email
-      from: 'yourcompany@domain.com', // Your verified sender email
+      from: 'john@zi.consulting', // Your verified sender email
       subject: 'Your Revenue Recognition Assessment Results',
       html: `
         <h1>Assessment Results</h1>
