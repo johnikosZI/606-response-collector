@@ -39,7 +39,7 @@ exports.handler = async (event) => {
     // Build your email
     const msg = {
       to: data.userEmail,            // The email address from the form
-      from: 'yourcompany@domain.com', // Must be a verified sender in SendGrid
+      from: 'john@zi.consulting', // Must be a verified sender in SendGrid
       subject: 'Your Revenue Recognition Assessment Results',
       html: `
         <h1>Assessment Results</h1>
