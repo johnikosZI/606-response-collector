@@ -5,17 +5,36 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.handler = async (event, context) => {
+  // 1. Handle OPTIONS Preflight
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        // Allow your Squarespace domain or '*' for all
+        'Access-Control-Allow-Origin': '*', 
+        // Which headers can be sent in the actual request
+        'Access-Control-Allow-Headers': 'Content-Type',
+        // Which methods are allowed
+        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+      },
+      body: 'OK'
+    };
+  }
+
+  // 2. Reject other methods if not POST
   if (event.httpMethod !== 'POST') {
     return {
       statusCode: 405,
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   }
-
+ 
+ // 3. For the actual POST request, also send back the CORS header
   try {
     // Parse the JSON payload from the front-end
     const data = JSON.parse(event.body);
-
+   
+    
     // Construct an email message
     const msg = {
       to: data.userEmail,            // Send to the user’s email
